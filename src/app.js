@@ -1,3 +1,5 @@
+import EventHub from './Events/EventHub'
+
 function initCanvas() {
     const domCanvas = document.createElement('canvas')
     domCanvas.classList.add('canvas')

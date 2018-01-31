@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "lodash": "^4.17.4",
     "parcel-bundler": "^1.5.1"
   },
   "name": "Boreas-Client",
