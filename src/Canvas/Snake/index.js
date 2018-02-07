@@ -1,11 +1,9 @@
-import View from '../View'
-
-class Snake extends View {
+class Snake {
     constructor(x, y, direction) {
         this.x = x
         this.y = y
         this.direction = direction || 'right'
-        this.speed = 1
+        this.speed = 10
     }
 
     changeDirection(newDirection){

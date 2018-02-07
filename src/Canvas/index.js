@@ -15,7 +15,7 @@ class Canvas extends EventHub {
     clear() {
         const { width, height } = this.config
 
-        this.context.clearRect(0, 0, width, height)
+        this.ctx.clearRect(0, 0, width, height)
     }
 
     initBrush() {

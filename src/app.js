@@ -17,21 +17,28 @@ function launch() {
         width: initWidth
     })
 
-    const run = () => {
-        requestAnimationFrame(function cycle() {
-            canvas.update(run.time)
-            run.time++
+    const Runner = {
+        status: 'stop',
+        time: 1,
+        run: () => {
+            requestAnimationFrame(function cycle() {
+                canvas.update(Runner.time)
+                Runner.time++
 
-            if (!run.needStop) {
-                requestAnimationFrame(cycle)
+                if (Runner.status === 'running') {
+                    requestAnimationFrame(cycle)
+                }
+            })
+        },
+        toggle: () => {
+            if (Runner.status === 'stop') {
+                Runner.status = 'running'
+                Runner.run(Runner.time)
             } else {
-                run.needStop = false
+                Runner.status = 'stop'
             }
-        })
+        }
     }
-
-    run.needStop = false
-    run.time = 1
 
     canvas.listen(
         'keydown',
@@ -40,11 +47,7 @@ function launch() {
 
             switch (evt.keyCode) {
                 case 32: // space
-                    if (!run.needStop) {
-                        run()
-                    } else {
-                        run.needStop = true
-                    }
+                    Runner.toggle()
                     break
                 case 37: // left
                     snake.changeDirection('left')

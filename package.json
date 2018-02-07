@@ -1,15 +1,16 @@
 {
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "parcel-bundler": "^1.5.1"
-  },
-  "name": "Boreas-Client",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:zebrallel/Boreas-Client.git",
-  "author": "xuxuejian <jearbilove@yeah.net>",
-  "license": "MIT",
-  "scripts": {
-    "start": "parcel index.html"
-  }
+    "dependencies": {
+        "lodash": "^4.17.4",
+        "parcel-bundler": "^1.5.1"
+    },
+    "name": "Boreas-Client",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:zebrallel/Boreas-Client.git",
+    "author": "xuxuejian <jearbilove@yeah.net>",
+    "license": "MIT",
+    "scripts": {
+        "start": "parcel index.html",
+        "dist": "rm -rf dist/* && parcel build index.html"
+    }
 }
