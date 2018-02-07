@@ -1,5 +1,5 @@
 const url = '//'
 
-export function initWebSocketService(){
+export default function initWebSocketService(){
     
 }
