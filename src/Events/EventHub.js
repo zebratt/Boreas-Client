@@ -66,4 +66,4 @@ class EventHub {
     }
 }
 
-export default new EventHub()
+export default EventHub

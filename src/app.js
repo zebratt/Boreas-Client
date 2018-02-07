@@ -1,5 +1,5 @@
 import EventHub from './Events/EventHub'
-import initCanvas from './Canvas'
+import Canvas from './Canvas'
 
 function launch() {
     const domCanvas = document.createElement('canvas')
@@ -12,10 +12,29 @@ function launch() {
 
     document.body.appendChild(domCanvas)
 
-    initCanvas(domCanvas.getContext('2d'), {
+    const canvas = new Canvas(domCanvas.getContext('2d'), {
         height: initHeight,
         width: initWidth
     })
+
+    canvas.listen(
+        'keydown',
+        evt => {
+            switch (evt.keyCode) {
+                case 32: // space
+                    break
+                case 37: // left
+                    break
+                case 38: // up
+                    break
+                case 39: // right
+                    break
+                case 40: // down
+                    break
+            }
+        },
+        document
+    )
 }
 
 //Entry
