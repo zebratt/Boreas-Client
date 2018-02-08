@@ -1,5 +1,6 @@
 import EventHub from './Events/EventHub'
 import Canvas from './Canvas'
+import initSocket from './Socket/WebSocket'
 
 function launch() {
     const domCanvas = document.createElement('canvas')
@@ -21,12 +22,26 @@ function launch() {
         status: 'stop',
         time: 1,
         run: () => {
-            requestAnimationFrame(function cycle() {
+            function cycle() {
                 canvas.update(Runner.time)
                 Runner.time++
 
-                if (Runner.status === 'running') {
-                    requestAnimationFrame(cycle)
+                ws.send(
+                    JSON.stringify({
+                        x: canvas.snake.x,
+                        y: canvas.snake.y
+                    })
+                )
+            }
+
+            const ws = initSocket({
+                onopen: () => {
+                    ws.send('open')
+                },
+                onmessage: evt => {
+                    if (Runner.status === 'running') {
+                        requestAnimationFrame(cycle)
+                    }
                 }
             })
         },
