@@ -7,7 +7,7 @@ class Canvas extends EventHub {
 
         this.ctx = ctx
         this.config = config
-        this.snake = new Snake(10, 10, 'right')
+        this.snake = new Snake(20, 20, 20, 'right')
 
         this.initBrush()
     }
@@ -23,9 +23,9 @@ class Canvas extends EventHub {
     }
 
     draw(target) {
-        const { x, y } = target
+        const { x, y, width } = target
 
-        this.ctx.fillRect(x, y, 50, 50)
+        this.ctx.fillRect(x, y, width, width)
     }
 
     update(t) {

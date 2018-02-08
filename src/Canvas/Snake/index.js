@@ -1,12 +1,13 @@
 class Snake {
-    constructor(x, y, direction) {
+    constructor(x, y, width, direction) {
         this.x = x
         this.y = y
+        this.width = width
         this.direction = direction || 'right'
-        this.speed = 10
+        this.speed = 2
     }
 
-    changeDirection(newDirection){
+    changeDirection(newDirection) {
         this.direction = newDirection
     }
 
