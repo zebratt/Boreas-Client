@@ -1,6 +1,6 @@
 import EventHub from './Events/EventHub'
 import Canvas from './Canvas'
-import initSocket from './Socket/WebSocket'
+import initWebSocket from './Socket/WebSocket'
 
 function launch() {
     const domCanvas = document.createElement('canvas')
@@ -41,11 +41,6 @@ function launch() {
         }
     }
 
-    // const ws = initSocket({
-    //     onopen: () => {},
-    //     onmessage: () => {}
-    // })
-
     canvas.listen(
         'keydown',
         evt => {
@@ -74,4 +69,17 @@ function launch() {
 }
 
 //Entry
-launch()
+// launch()
+
+window.onload = () => {
+    const Events = {
+        onopen: () => {},
+        onmessge: () => {},
+        onclose: () => {}
+    }
+
+    document.querySelector('.btn').addEventListener('click', () => {
+        
+    })
+
+}

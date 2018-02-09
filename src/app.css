@@ -1,5 +1,31 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    background: #555;
+    height: 100%;
+}
+
+.start{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+}
+
+.start .btn{
+    display: inline-block;
+    margin: 0 auto;
+    background: rgb(37, 123, 209);
+    border: #fff solid 1px;
+    padding: 8px 25px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 18px;
+}
+
 .canvas{
     display: block;
     margin: 50px auto 0;
     border: #e5e5e5 solid 1px;
+    background: #fff;
 }
