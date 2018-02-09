@@ -22,26 +22,12 @@ function launch() {
         status: 'stop',
         time: 1,
         run: () => {
-            function cycle() {
+            requestAnimationFrame(function cycle() {
                 canvas.update(Runner.time)
                 Runner.time++
 
-                ws.send(
-                    JSON.stringify({
-                        x: canvas.snake.x,
-                        y: canvas.snake.y
-                    })
-                )
-            }
-
-            const ws = initSocket({
-                onopen: () => {
-                    ws.send('open')
-                },
-                onmessage: evt => {
-                    if (Runner.status === 'running') {
-                        requestAnimationFrame(cycle)
-                    }
+                if (Runner.status === 'running') {
+                    requestAnimationFrame(cycle)
                 }
             })
         },
@@ -54,6 +40,11 @@ function launch() {
             }
         }
     }
+
+    // const ws = initSocket({
+    //     onopen: () => {},
+    //     onmessage: () => {}
+    // })
 
     canvas.listen(
         'keydown',
