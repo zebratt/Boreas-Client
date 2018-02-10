@@ -1,8 +1,9 @@
 import EventHub from './Events/EventHub'
+import Message from './Events/Message'
 import Canvas from './Canvas'
 import initWebSocket from './Socket/WebSocket'
 
-function launch(ws) {
+function launch(message) {
     const domCanvas = document.createElement('canvas')
     const initHeight = innerHeight - 100
     const initWidth = document.documentElement.offsetWidth - 100
@@ -41,26 +42,29 @@ function launch(ws) {
         }
     }
 
+    // change direction
+    message.register('DIRECTION', data => {
+        canvas.snake.changeDirection(data.directTo)
+    })
+
     canvas.listen(
         'keydown',
         evt => {
-            const snake = canvas.snake
-
             switch (evt.keyCode) {
                 case 32: // space
                     Runner.toggle()
                     break
                 case 37: // left
-                    snake.changeDirection('left')
+                    message.send({ type: 'DIRECTION', data: { directTo: 'LEFT' } })
                     break
                 case 38: // up
-                    snake.changeDirection('up')
+                    message.send({ type: 'DIRECTION', data: { directTo: 'UP' } })
                     break
                 case 39: // right
-                    snake.changeDirection('right')
+                    message.send({ type: 'DIRECTION', data: { directTo: 'RIGHT' } })
                     break
                 case 40: // down
-                    snake.changeDirection('down')
+                    message.send({ type: 'DIRECTION', data: { directTo: 'DOWN' } })
                     break
             }
         },
@@ -69,30 +73,29 @@ function launch(ws) {
 }
 
 window.onload = () => {
-    let ws = null
     const btnStart = document.querySelector('.btn')
     const text = document.querySelector('.text')
-    const Events = {
-        onopen: () => {
-            console.log('on open!')
-        },
-        onmessage: evt => {
-            const msg = JSON.parse(evt.data)
+    const message = new Message()
 
-            switch (msg.type) {
-                case 'WAIT':
-                    btnStart.style.display = 'none'
-                    text.innerText = '连接成功，等待其他玩家...'
-                    break
-                case 'START':
-                    text.style.display = 'none'
-                    launch(ws)
-            }
-        },
-        onclose: () => {}
-    }
+    message.register('WAIT', () => {
+        btnStart.style.display = 'none'
+        text.innerText = '连接成功，等待其他玩家...'
+    })
+
+    message.register('START', () => {
+        text.style.display = 'none'
+        launch(message)
+    })
 
     btnStart.addEventListener('click', () => {
-        ws = initWebSocket(Events)
+        message.init(
+            initWebSocket({
+                onopen: () => {
+                    console.log('Websocket connected!')
+                },
+                onmessage: message.listen(),
+                onclose: () => {}
+            })
+        )
     })
 }

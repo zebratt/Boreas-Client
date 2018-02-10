@@ -7,7 +7,7 @@ class Canvas extends EventHub {
 
         this.ctx = ctx
         this.config = config
-        this.snake = new Snake(20, 20, 20, 'right')
+        this.snake = new Snake(20, 20, 20, 'RIGHT')
 
         this.initBrush()
     }

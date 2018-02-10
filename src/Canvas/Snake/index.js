@@ -3,7 +3,7 @@ class Snake {
         this.x = x
         this.y = y
         this.width = width
-        this.direction = direction || 'right'
+        this.direction = direction || 'RIGHT'
         this.speed = 2
     }
 
@@ -13,16 +13,16 @@ class Snake {
 
     update(t) {
         switch (this.direction) {
-            case 'up':
+            case 'UP':
                 this.y -= this.speed
                 break
-            case 'right':
+            case 'RIGHT':
                 this.x += this.speed
                 break
-            case 'down':
+            case 'DOWN':
                 this.y += this.speed
                 break
-            case 'left':
+            case 'LEFT':
                 this.x -= this.speed
                 break
         }
