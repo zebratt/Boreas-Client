@@ -1,7 +1,8 @@
 {
     "dependencies": {
         "lodash": "^4.17.4",
-        "parcel-bundler": "^1.5.1"
+        "parcel-bundler": "^1.5.1",
+        "websocket": "^1.0.25"
     },
     "name": "Boreas-Client",
     "version": "1.0.0",

@@ -69,21 +69,21 @@ function launch(ws) {
 }
 
 window.onload = () => {
-    let ws = null;
-    const btnStart = document.querySelector('.btn');
+    let ws = null
+    const btnStart = document.querySelector('.btn')
     const text = document.querySelector('.text')
     const Events = {
         onopen: () => {
-            console.log('on open!');
+            console.log('on open!')
         },
-        onmessage: (evt) => {
+        onmessage: evt => {
             const msg = JSON.parse(evt.data)
 
             switch (msg.type) {
                 case 'WAIT':
                     btnStart.style.display = 'none'
                     text.innerText = '连接成功，等待其他玩家...'
-                    break;
+                    break
                 case 'START':
                     text.style.display = 'none'
                     launch(ws)
