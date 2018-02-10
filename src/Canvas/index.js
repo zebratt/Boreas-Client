@@ -19,7 +19,11 @@ class Canvas extends EventHub {
     }
 
     initBrush() {
+        const { width, height } = this.config
+
         this.ctx.fillStyle = '#333'
+        this.ctx.font = '30px Georgia'
+        this.ctx.fillText('Press space to start', width / 2 - 150, height / 2)
     }
 
     draw(target) {

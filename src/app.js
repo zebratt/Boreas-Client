@@ -2,7 +2,7 @@ import EventHub from './Events/EventHub'
 import Canvas from './Canvas'
 import initWebSocket from './Socket/WebSocket'
 
-function launch() {
+function launch(ws) {
     const domCanvas = document.createElement('canvas')
     const initHeight = innerHeight - 100
     const initWidth = document.documentElement.offsetWidth - 100
@@ -68,18 +68,31 @@ function launch() {
     )
 }
 
-//Entry
-// launch()
-
 window.onload = () => {
+    let ws = null;
+    const btnStart = document.querySelector('.btn');
+    const text = document.querySelector('.text')
     const Events = {
-        onopen: () => {},
-        onmessge: () => {},
+        onopen: () => {
+            console.log('on open!');
+        },
+        onmessage: (evt) => {
+            const msg = JSON.parse(evt.data)
+
+            switch (msg.type) {
+                case 'WAIT':
+                    btnStart.style.display = 'none'
+                    text.innerText = '连接成功，等待其他玩家...'
+                    break;
+                case 'START':
+                    text.style.display = 'none'
+                    launch(ws)
+            }
+        },
         onclose: () => {}
     }
 
-    document.querySelector('.btn').addEventListener('click', () => {
-        
+    btnStart.addEventListener('click', () => {
+        ws = initWebSocket(Events)
     })
-
 }

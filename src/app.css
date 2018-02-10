@@ -8,6 +8,7 @@ html,body{
 .start{
     position: absolute;
     top: 50%;
+    margin-top: -30px;
     width: 100%;
     text-align: center;
 }
@@ -23,9 +24,19 @@ html,body{
     font-size: 18px;
 }
 
+.start .text{
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+}
+
 .canvas{
-    display: block;
-    margin: 50px auto 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     border: #e5e5e5 solid 1px;
     background: #fff;
 }
