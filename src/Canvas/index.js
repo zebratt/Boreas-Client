@@ -22,6 +22,7 @@ class Canvas extends EventHub {
         const { width, height } = this.config
 
         this.ctx.fillStyle = '#333'
+        this.ctx.strokeStyle = '#333'
         this.ctx.font = '30px Georgia'
         this.ctx.fillText('Press space to start', width / 2 - 150, height / 2)
     }
@@ -29,7 +30,9 @@ class Canvas extends EventHub {
     draw(target) {
         const { x, y, width } = target
 
-        this.ctx.fillRect(x, y, width, width)
+        this.ctx.beginPath()
+        this.ctx.arc(x, y, width, 0, Math.PI * 2, false)
+        this.ctx.stroke()
     }
 
     update(t) {
