@@ -24,7 +24,9 @@ window.onload = () => {
     connection.register('direction', msg => {
         const snake = find(canvas.snakes, ['id', msg.uuid])
 
-        snake.changeDirection(msg.data.directTo)
+        if(snake){
+            snake.changeDirection(msg.data.directTo)
+        }
     })
 
     btnStart.addEventListener('click', () => {
