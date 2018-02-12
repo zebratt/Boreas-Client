@@ -1,10 +1,19 @@
 class Snake {
-    constructor(x, y, width, direction) {
-        this.x = x
-        this.y = y
-        this.width = width
-        this.direction = direction || 'RIGHT'
-        this.speed = 2
+    constructor(options) {
+        if(!options.id){
+            throw new Error('Snake must have a unique identifier!')
+        }
+
+        const defaultOptions = {
+            x : 20,
+            y: 20,
+            width: 20,
+            direction: 'RIGHT',
+            speed: 2,
+            isMaster: false // 是否是玩家自己控制的
+        }
+
+        Object.assign(this, defaultOptions, options)
     }
 
     changeDirection(newDirection) {

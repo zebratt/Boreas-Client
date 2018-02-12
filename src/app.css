@@ -24,12 +24,6 @@ html,body{
     font-size: 18px;
 }
 
-.start .text{
-    color: #fff;
-    font-size: 15px;
-    text-align: center;
-}
-
 .canvas{
     position: absolute;
     top: 0;

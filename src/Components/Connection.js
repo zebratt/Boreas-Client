@@ -1,4 +1,4 @@
-class Message {
+class Connection {
     constructor() {
         this.handlers = {}
     }
@@ -17,12 +17,11 @@ class Message {
 
     listen() {
         return evt => {
-            debugger
             const msg = JSON.parse(evt.data)
             const handler = this.handlers[msg.type]
 
             if (handler) {
-                handler(msg.data)
+                handler(msg)
             } else {
                 console.error(`data type: ${msg.type} can not be handle`)
             }
@@ -30,4 +29,4 @@ class Message {
     }
 }
 
-export default Message 
+export default Connection 

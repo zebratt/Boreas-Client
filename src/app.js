@@ -1,95 +1,40 @@
-import EventHub from './Events/EventHub'
-import Message from './Events/Message'
-import Canvas from './Canvas'
+import Connection from './Components/Connection'
 import initWebSocket from './Socket/WebSocket'
-
-function launch(message) {
-    const domCanvas = document.createElement('canvas')
-    const initHeight = innerHeight - 100
-    const initWidth = document.documentElement.offsetWidth - 100
-
-    domCanvas.classList.add('canvas')
-    domCanvas.setAttribute('height', initHeight)
-    domCanvas.setAttribute('width', initWidth)
-
-    document.body.appendChild(domCanvas)
-
-    const canvas = new Canvas(domCanvas.getContext('2d'), {
-        height: initHeight,
-        width: initWidth
-    })
-
-    const Runner = {
-        status: 'stop',
-        time: 1,
-        run: () => {
-            requestAnimationFrame(function cycle() {
-                canvas.update(Runner.time)
-                Runner.time++
-
-                if (Runner.status === 'running') {
-                    requestAnimationFrame(cycle)
-                }
-            })
-        },
-        toggle: () => {
-            if (Runner.status === 'stop') {
-                Runner.status = 'running'
-                Runner.run(Runner.time)
-            } else {
-                Runner.status = 'stop'
-            }
-        }
-    }
-
-    // change direction
-    message.register('DIRECTION', data => {
-        canvas.snake.changeDirection(data.directTo)
-    })
-
-    canvas.listen(
-        'keydown',
-        evt => {
-            switch (evt.keyCode) {
-                case 32: // space
-                    Runner.toggle()
-                    break
-                case 37: // left
-                    message.send({ type: 'DIRECTION', data: { directTo: 'LEFT' } })
-                    break
-                case 38: // up
-                    message.send({ type: 'DIRECTION', data: { directTo: 'UP' } })
-                    break
-                case 39: // right
-                    message.send({ type: 'DIRECTION', data: { directTo: 'RIGHT' } })
-                    break
-                case 40: // down
-                    message.send({ type: 'DIRECTION', data: { directTo: 'DOWN' } })
-                    break
-            }
-        },
-        document
-    )
-}
+import launch from './Components/Launch'
+import Snake from './Canvas/Snake'
+import find from 'lodash/find'
 
 window.onload = () => {
     const btnStart = document.querySelector('.btn')
-    const text = document.querySelector('.text')
-    const message = new Message()
+    const connection = new Connection()
+    let canvas = null
+    let isMasterSnake = true
 
-    message.register('START', () => {
-        text.style.display = 'none'
-        launch(message)
+    connection.register('connection', msg => {
+        canvas.pushSnake(
+            new Snake({
+                id: msg.uuid,
+                isMaster: isMasterSnake
+            })
+        )
+
+        isMasterSnake = false
+    })
+
+    connection.register('direction', msg => {
+        const snake = find(canvas.snakes, ['id', msg.uuid])
+
+        snake.changeDirection(msg.data.directTo)
     })
 
     btnStart.addEventListener('click', () => {
-        message.init(
+        connection.init(
             initWebSocket({
                 onopen: () => {
                     btnStart.style.display = 'none'
-                    text.innerText = '连接成功，等待其他玩家...'
+                    canvas = launch(connection)
                 },
-                onmessage: message.listen(),
+                onmessage: connection.listen(),
                 onclose: () => {}
             })
         )
