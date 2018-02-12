@@ -17,6 +17,7 @@ class Message {
 
     listen() {
         return evt => {
+            debugger
             const msg = JSON.parse(evt.data)
             const handler = this.handlers[msg.type]
 

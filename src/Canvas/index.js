@@ -32,7 +32,7 @@ class Canvas extends EventHub {
 
         this.ctx.beginPath()
         this.ctx.arc(x, y, width, 0, Math.PI * 2, false)
-        this.ctx.stroke()
+        this.ctx.fill()
     }
 
     update(t) {

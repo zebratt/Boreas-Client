@@ -77,11 +77,6 @@ window.onload = () => {
     const text = document.querySelector('.text')
     const message = new Message()
 
-    message.register('WAIT', () => {
-        btnStart.style.display = 'none'
-        text.innerText = '连接成功，等待其他玩家...'
-    })
-
     message.register('START', () => {
         text.style.display = 'none'
         launch(message)
@@ -91,7 +86,8 @@ window.onload = () => {
         message.init(
             initWebSocket({
                 onopen: () => {
-                    console.log('Websocket connected!')
+                    btnStart.style.display = 'none'
+                    text.innerText = '连接成功，等待其他玩家...'
                 },
                 onmessage: message.listen(),
                 onclose: () => {}
