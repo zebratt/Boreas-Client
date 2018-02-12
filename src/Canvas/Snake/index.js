@@ -8,7 +8,6 @@ class Snake {
             x : 20,
             y: 20,
             width: 20,
-            direction: 'RIGHT',
             speed: 2,
             isMaster: false // 是否是玩家自己控制的
         }
