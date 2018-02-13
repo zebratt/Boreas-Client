@@ -1,5 +1,6 @@
 import EventHub from '../Events/EventHub'
 import Snake from './Snake'
+import remove from 'lodash/remove'
 
 class Canvas extends EventHub {
     constructor(ctx, config) {
@@ -16,6 +17,12 @@ class Canvas extends EventHub {
         this.snakes.push(snake)
     }
 
+    removeSnake(id) {
+        remove(this.snakes, snake => {
+            return snake.id === id
+        })
+    }
+
     clear() {
         const { width, height } = this.config
 
@@ -28,7 +35,7 @@ class Canvas extends EventHub {
         this.ctx.fillStyle = '#333'
         this.ctx.strokeStyle = '#333'
         this.ctx.font = '30px Georgia'
-        this.ctx.fillText('Press space to start', width / 2 - 150, height / 2)
+        this.ctx.fillText('Press enter to start', width / 2 - 150, height / 2)
     }
 
     draw(target) {

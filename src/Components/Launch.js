@@ -51,7 +51,7 @@ export default function Launch(connection) {
             }
 
             switch (evt.keyCode) {
-                case 32: // space
+                case 13: // enter
                     Runner.toggle()
                     break
                 case 37: // left
@@ -65,6 +65,9 @@ export default function Launch(connection) {
                     break
                 case 40: // down
                     connection.send({ uuid: masterSnake.id, type: 'direction', data: { directTo: 'DOWN' } })
+                    break
+                case 32: // space
+                    connection.send({ uuid: masterSnake.id, type: 'direction', data: { directTo: '' } })
                     break
             }
         },

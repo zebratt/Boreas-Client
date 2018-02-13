@@ -11,20 +11,27 @@ window.onload = () => {
     let isMasterSnake = true
 
     connection.register('connection', msg => {
-        canvas.pushSnake(
-            new Snake({
-                id: msg.uuid,
-                isMaster: isMasterSnake
-            })
-        )
+        switch (msg.action) {
+            case 'connected':
+                canvas.pushSnake(
+                    new Snake({
+                        id: msg.uuid,
+                        isMaster: isMasterSnake
+                    })
+                )
 
-        isMasterSnake = false
+                isMasterSnake = false
+                break
+            case 'disconnected':
+                canvas.removeSnake(msg.uuid)
+                break
+        }
     })
 
     connection.register('direction', msg => {
         const snake = find(canvas.snakes, ['id', msg.uuid])
 
-        if(snake){
+        if (snake) {
             snake.changeDirection(msg.data.directTo)
         }
     })
