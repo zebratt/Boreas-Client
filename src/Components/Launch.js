@@ -92,7 +92,7 @@ export default function Launch(connection) {
                     connection.send({
                         uuid: masterSnake.id,
                         type: 'direction',
-                        data: { directTo: '', x: masterSnake.x, y: masterSnake.y }
+                        data: { directTo: 'STOP', x: masterSnake.x, y: masterSnake.y }
                     })
                     break
             }
