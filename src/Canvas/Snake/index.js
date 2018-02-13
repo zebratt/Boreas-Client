@@ -1,11 +1,11 @@
 class Snake {
     constructor(options) {
-        if(!options.id){
+        if (!options.id) {
             throw new Error('Snake must have a unique identifier!')
         }
 
         const defaultOptions = {
-            x : 20,
+            x: 20,
             y: 20,
             width: 20,
             speed: 2,
@@ -17,6 +17,11 @@ class Snake {
 
     changeDirection(newDirection) {
         this.direction = newDirection
+    }
+
+    sync(x, y) {
+        this.x = x
+        this.y = y
     }
 
     update(t) {

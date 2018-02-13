@@ -32,7 +32,9 @@ window.onload = () => {
         const snake = find(canvas.snakes, ['id', msg.uuid])
 
         if (snake) {
-            snake.changeDirection(msg.data.directTo)
+            const { directTo, x, y } = msg.data
+            snake.changeDirection(directTo)
+            snake.sync(x, y)
         }
     })
 

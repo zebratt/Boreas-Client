@@ -45,7 +45,7 @@ export default function Launch(connection) {
     setInterval(() => {
         domText.innerHTML = 'FPS:' + Runner.time
         Runner.time = 0
-    }, 1000);
+    }, 1000)
 
     canvas.listen(
         'keydown',
@@ -61,19 +61,39 @@ export default function Launch(connection) {
                     Runner.toggle()
                     break
                 case 37: // left
-                    connection.send({ uuid: masterSnake.id, type: 'direction', data: { directTo: 'LEFT' } })
+                    connection.send({
+                        uuid: masterSnake.id,
+                        type: 'direction',
+                        data: { directTo: 'LEFT', x: masterSnake.x, y: masterSnake.y }
+                    })
                     break
                 case 38: // up
-                    connection.send({ uuid: masterSnake.id, type: 'direction', data: { directTo: 'UP' } })
+                    connection.send({
+                        uuid: masterSnake.id,
+                        type: 'direction',
+                        data: { directTo: 'UP', x: masterSnake.x, y: masterSnake.y }
+                    })
                     break
                 case 39: // right
-                    connection.send({ uuid: masterSnake.id, type: 'direction', data: { directTo: 'RIGHT' } })
+                    connection.send({
+                        uuid: masterSnake.id,
+                        type: 'direction',
+                        data: { directTo: 'RIGHT', x: masterSnake.x, y: masterSnake.y }
+                    })
                     break
                 case 40: // down
-                    connection.send({ uuid: masterSnake.id, type: 'direction', data: { directTo: 'DOWN' } })
+                    connection.send({
+                        uuid: masterSnake.id,
+                        type: 'direction',
+                        data: { directTo: 'DOWN', x: masterSnake.x, y: masterSnake.y }
+                    })
                     break
                 case 32: // space
-                    connection.send({ uuid: masterSnake.id, type: 'direction', data: { directTo: '' } })
+                    connection.send({
+                        uuid: masterSnake.id,
+                        type: 'direction',
+                        data: { directTo: '', x: masterSnake.x, y: masterSnake.y }
+                    })
                     break
             }
         },
