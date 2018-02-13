@@ -24,6 +24,11 @@ html,body{
     font-size: 18px;
 }
 
+.text{
+    position: absolute;
+    color: #fff;
+}
+
 .canvas{
     position: absolute;
     top: 0;

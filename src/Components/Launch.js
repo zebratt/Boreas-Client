@@ -3,6 +3,7 @@ import find from 'lodash/find'
 
 export default function Launch(connection) {
     const domCanvas = document.createElement('canvas')
+    const domText = document.querySelector('.text')
     const initHeight = innerHeight - 100
     const initWidth = document.documentElement.offsetWidth - 100
     let masterSnake = null
@@ -20,7 +21,7 @@ export default function Launch(connection) {
 
     const Runner = {
         status: 'stop',
-        time: 1,
+        time: 0,
         run: () => {
             requestAnimationFrame(function cycle() {
                 canvas.update(Runner.time)
@@ -40,6 +41,11 @@ export default function Launch(connection) {
             }
         }
     }
+
+    setInterval(() => {
+        domText.innerHTML = 'FPS:' + Runner.time
+        Runner.time = 0
+    }, 1000);
 
     canvas.listen(
         'keydown',
