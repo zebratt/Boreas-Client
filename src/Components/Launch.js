@@ -63,35 +63,35 @@ export default function Launch(connection) {
                 case 37: // left
                     connection.send({
                         uuid: masterSnake.id,
-                        type: 'direction',
+                        type: 'sync',
                         data: { directTo: 'LEFT', x: masterSnake.x, y: masterSnake.y }
                     })
                     break
                 case 38: // up
                     connection.send({
                         uuid: masterSnake.id,
-                        type: 'direction',
+                        type: 'sync',
                         data: { directTo: 'UP', x: masterSnake.x, y: masterSnake.y }
                     })
                     break
                 case 39: // right
                     connection.send({
                         uuid: masterSnake.id,
-                        type: 'direction',
+                        type: 'sync',
                         data: { directTo: 'RIGHT', x: masterSnake.x, y: masterSnake.y }
                     })
                     break
                 case 40: // down
                     connection.send({
                         uuid: masterSnake.id,
-                        type: 'direction',
+                        type: 'sync',
                         data: { directTo: 'DOWN', x: masterSnake.x, y: masterSnake.y }
                     })
                     break
                 case 32: // space
                     connection.send({
                         uuid: masterSnake.id,
-                        type: 'direction',
+                        type: 'sync',
                         data: { directTo: 'STOP', x: masterSnake.x, y: masterSnake.y }
                     })
                     break

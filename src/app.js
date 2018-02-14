@@ -13,6 +13,16 @@ window.onload = () => {
     connection.register('connection', msg => {
         switch (msg.action) {
             case 'connected':
+                const masterSnake = find(canvas.snakes, 'isMaster')
+
+                if (masterSnake) {
+                    connection.send({
+                        type: 'sync',
+                        uuid: masterSnake.id,
+                        data: { directTo: masterSnake.direction, x: masterSnake.x, y: masterSnake.y }
+                    })
+                }
+
                 canvas.pushSnake(
                     new Snake({
                         id: msg.uuid,
@@ -22,13 +32,21 @@ window.onload = () => {
 
                 isMasterSnake = false
                 break
+            case 'sync':
+                canvas.pushSnake(
+                    new Snake({
+                        id: msg.uuid,
+                        isMaster: false
+                    })
+                )
+                break
             case 'disconnected':
                 canvas.removeSnake(msg.uuid)
                 break
         }
     })
 
-    connection.register('direction', msg => {
+    connection.register('sync', msg => {
         const snake = find(canvas.snakes, ['id', msg.uuid])
 
         if (snake) {
